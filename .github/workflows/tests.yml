@@ -1,7 +1,7 @@
 name: Tests & Vercel Deploy
 
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }} # Team ID on vercel
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3 # клонируем репозиторий на ubuntu-latest
+        uses: actions/checkout@v3 # клонируем репозиторий
 
       - name: Install dependencies
         run: yarn # устанавливаем зависимости
@@ -25,7 +25,6 @@ jobs:
         env:
           ENV: ${{ vars.ENV_GH }} # указываем необходимые переменные для тестов
 
-
   #  https://vercel.com/guides/how-can-i-use-github-actions-with-vercel
   deploy:
     name: Deploy # название работы в нашем pipeline
@@ -34,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest # to use global vercel cli
+        run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
